@@ -8,8 +8,13 @@ It's a decorator. So you can just import the class in your project and use it li
 ```
 from custom_cache import CustomCache
 
-@CustomCache
+@CustomCache()
 def test_cache(x):
     return x*10
-
+```
+Example for using with arguments:
+```
+@CustomCache(max_size=200)
+def test_cache(x):
+    return x*10
 ```
