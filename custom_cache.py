@@ -1,22 +1,22 @@
 import datetime
 
-### For more questions contact me through alex.jolig@gmail.com
 
 class CustomCache:
-    def __init__(self, function, max_size=100):
+    def __init__(self, max_size=100):
         """Constructor"""
-        self.function = function
         self.cache = {}
         self.max_cache_size = max_size
 
-    def __call__(self, *args, **kwargs):
-        key = str(args) + str(kwargs)
-        if key in self.cache:
-            return self.cache[key]['value']
+    def __call__(self, function):
+        def wrapper(*args, **kwargs):
+            key = str(args) + str(kwargs)
+            if key in self.cache:
+                return self.cache[key]['value']
 
-        value = self.function(*args, **kwargs)
-        self.update(key, value)
-        return value
+            value = function(*args, **kwargs)
+            self.update(key, value)
+            return value
+        return wrapper
 
     def __contains__(self, key):
         """
