@@ -14,7 +14,8 @@ class CustomCache:
                 return self.cache[key]['value']
 
             value = function(*args, **kwargs)
-            self.update(key, value)
+            if value:
+                self.update(key, value)
             return value
         return wrapper
 
